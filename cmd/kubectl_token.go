@@ -411,6 +411,7 @@ func samlAuth(input *LoginInput, tlsConfig *tls.Config) (managementClient.Token,
 
 	tr := &http.Transport{
 		TLSClientConfig: tlsConfig,
+		Proxy: http.ProxyFromEnvironment,
 	}
 
 	client := &http.Client{Transport: tr, Timeout: 300 * time.Second}
@@ -469,6 +470,7 @@ func samlAuth(input *LoginInput, tlsConfig *tls.Config) (managementClient.Token,
 			req.Header.Set("accept", "application/json")
 			tr := &http.Transport{
 				TLSClientConfig: tlsConfig,
+				Proxy: http.ProxyFromEnvironment,
 			}
 			client = &http.Client{Transport: tr, Timeout: 150 * time.Second}
 			res, err = client.Do(req)
@@ -596,6 +598,7 @@ func request(method, url string, body io.Reader) ([]byte, error) {
 	}
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		Proxy: http.ProxyFromEnvironment,
 	}
 	client = &http.Client{Transport: tr}
 	res, err := client.Do(req)

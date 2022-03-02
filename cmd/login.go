@@ -262,6 +262,7 @@ func getCertFromServer(ctx *cli.Context, cf *config.ServerConfig) (*cliclient.Ma
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		Proxy: http.ProxyFromEnvironment,
 	}
 	client := &http.Client{Transport: tr}
 
